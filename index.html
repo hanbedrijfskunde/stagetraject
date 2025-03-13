@@ -9,18 +9,40 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
       rel="stylesheet"
     />
+    <!-- Material Icons -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <style>
       body {
         padding: 20px;
+        line-height: 1.6;
+        background-color: #f5f5f5;
+        color: #424242;
       }
       .section {
         margin-top: 40px;
       }
       table {
         font-size: 0.9rem;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       }
       .table-header {
-        background-color: #e0e0e0;
+        background-color: #26a69a;
+        color: white;
+      }
+      /* Top alignment voor table headers */
+      .table-header th {
+        vertical-align: top;
+        padding-top: 10px;
+      }
+      /* Meer ruimte tussen Totaal klokuren en Inhoud PM */
+      table.highlight th:nth-child(6),
+      table.highlight td:nth-child(6) {
+        padding-left: 20px; /* Meer padding links van de 'Inhoud PM' kolom */
       }
       .small-text {
         font-size: 0.85rem;
@@ -28,345 +50,578 @@
       .right-align {
         text-align: right;
       }
+      .page-title {
+        color: #26a69a;
+        margin-bottom: 0.5rem;
+      }
+      .page-subtitle {
+        margin-bottom: 2rem;
+        color: #757575;
+      }
+      .card {
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      .card .card-content .card-title {
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+      }
+      .card .card-content .card-title i {
+        margin-right: 10px;
+      }
+      .collection {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .collection .collection-item {
+        padding: 15px 20px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+      .collection .collection-item:last-child {
+        border-bottom: none;
+      }
+      .highlight tr:hover {
+        background-color: rgba(38, 166, 154, 0.05);
+      }
+      .section-title {
+        display: flex;
+        align-items: center;
+        color: #26a69a;
+        margin-bottom: 1.5rem;
+      }
+      .section-title i {
+        margin-right: 10px;
+      }
+      .section-description {
+        color: #757575;
+        margin-bottom: 1.5rem;
+      }
+      .week-number {
+        font-weight: 500;
+      }
+      .divider {
+        margin: 30px 0;
+        background-color: #e0e0e0;
+      }
+      .key-number {
+        font-weight: 700;
+        color: #26a69a;
+      }
+      .tabs .tab a {
+        color: #26a69a;
+      }
+      .tabs .tab a:hover,
+      .tabs .tab a.active {
+        color: #26a69a;
+      }
+      .tabs .indicator {
+        background-color: #26a69a;
+      }
+      .zero-hours {
+        background-color: #f5f5f5;
+        color: #9e9e9e;
+      }
+      .totals-row {
+        background-color: #e0f2f1;
+        font-weight: 500;
+      }
+      /* Zebra striping voor tabel */
+      .highlight tr:nth-child(odd) {
+        background-color: rgba(176, 224, 230, 0.2);
+      }
+      /* Toast for notifications */
+      .toast {
+        border-radius: 24px;
+        background-color: #26a69a;
+      }
+      /* Print-friendly adjustments */
+      @media print {
+        .tabs,
+        .fixed-action-btn {
+          display: none;
+        }
+        body {
+          background-color: white;
+          padding: 0;
+        }
+        .card {
+          box-shadow: none;
+          border: 1px solid #ddd;
+        }
+        .section {
+          page-break-inside: avoid;
+        }
+      }
     </style>
   </head>
   <body>
     <div class="container">
-      <h3 class="center-align">Onboarding Stagebegeleiding</h3>
-      <h5 class="center-align">Stage vanaf S1 2025/2026</h5>
+      <h3 class="center-align page-title">Onboarding Stagebegeleiding</h3>
+      <h5 class="center-align page-subtitle">Stage vanaf S1 2025/2026</h5>
 
-      <!-- Introductie -->
-      <div class="card">
-        <div class="card-content">
-          <span class="card-title">Waarom veranderen?</span>
-          <p>
-            Op basis van feedback van studenten, praktijkcoaches en
-            docentbegeleiders introduceren we een vernieuwde vorm van
-            stagebegeleiding. Het doel is om de kwaliteit te verhogen, een
-            betere voorbereiding op AOD te realiseren en de werkdruk te
-            verlagen.
-          </p>
+      <!-- Tab navigation -->
+      <div class="row">
+        <div class="col s12">
+          <ul class="tabs">
+            <li class="tab col s3">
+              <a class="active" href="#overview">Overzicht</a>
+            </li>
+            <li class="tab col s3"><a href="#planning">Planning</a></li>
+            <li class="tab col s3"><a href="#deadlines">Deadlines</a></li>
+          </ul>
         </div>
       </div>
 
-      <!-- Wijzigingen in Stagebegeleiding -->
-      <div class="section">
-        <h5>Wat gaat er veranderen?</h5>
-        <ul class="collection">
-          <li class="collection-item">7 studenten per docentbegeleider</li>
-          <li class="collection-item">
-            Teamopzet: duo van docentbegeleiders (samen 14 studenten)
-          </li>
-          <li class="collection-item">
-            Meer ingeroosterde terugkommomenten met docentenhandleiding en
-            programma
-          </li>
-          <li class="collection-item">
-            Intervisie en begeleiding van professionele ontwikkeling (met “jouw”
-            7 studenten)
-          </li>
-          <li class="collection-item">
-            Onderzoeksworkshops voor “jullie” 14 studenten met 1
-            docentbegeleider
-          </li>
-          <li class="collection-item">
-            Nieuw beoordelingsformulier in lijn met AOD (na(v) SKE Ilse &amp;
-            Rob)
-          </li>
-          <li class="collection-item">Nadruk op peer feedback</li>
-          <li class="collection-item">
-            Eindpresentatie op de HAN, met minder bedrijfsbezoeken
-          </li>
-        </ul>
-      </div>
+      <div id="overview">
+        <!-- Introductie -->
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title"
+              ><i class="material-icons">info</i>Waarom veranderen?</span
+            >
+            <p>
+              Op basis van feedback van studenten, praktijkcoaches en
+              docentbegeleiders introduceren we een vernieuwde vorm van
+              stagebegeleiding. Het doel is om de kwaliteit te verhogen, een
+              betere voorbereiding op AOD te realiseren en de werkdruk te
+              verlagen.
+            </p>
+          </div>
+        </div>
 
-      <!-- Werkdruk en Uren -->
-      <div class="section">
-        <h5>Werkdruk en Uren</h5>
-        <p>
-          Door meer groepsactiviteiten en inzet van peer feedback
-          herstructureren we de uren zodat de werkdruk afneemt. Dit biedt ruimte
-          voor een intensievere en kwalitatieve begeleiding.
-        </p>
-      </div>
+        <!-- Wijzigingen in Stagebegeleiding -->
+        <div class="section">
+          <h5 class="section-title">
+            <i class="material-icons">swap_horiz</i>Wat gaat er veranderen?
+          </h5>
+          <ul class="collection">
+            <li class="collection-item">
+              <i class="material-icons left">group</i>
+              <span
+                >Teamopzet: duo docentbegeleiders begeleidt twee groepen van
+                zeven studenten</span
+              >
+            </li>
+            <li class="collection-item">
+              <i class="material-icons left">book</i>
+              <span
+                >Programma met werkboek en activiteiten - workshops,
+                bedrijfsbezoeken, intervisie</span
+              >
+            </li>
+            <li class="collection-item">
+              <i class="material-icons left">forum</i>
+              <span
+                >Meer aandacht voor onderzoeksvaardigheden en peer
+                feedback</span
+              >
+            </li>
+            <li class="collection-item">
+              <i class="material-icons left">co_present</i>
+              <span
+                >Eindpresentatie op de HAN, met minder bedrijfsbezoeken</span
+              >
+            </li>
+          </ul>
+        </div>
 
-      <!-- Curriculum aansluiting -->
-      <div class="section">
-        <h5>Aansluiting bij het curriculum</h5>
-        <p>
-          De vernieuwde aanpak sluit naadloos aan bij het nieuwe curriculum, met
-          extra aandacht voor zowel inhoud als de praktische uitvoering.
-        </p>
+        <!-- Werkdruk en Uren -->
+        <div class="section">
+          <h5 class="section-title">
+            <i class="material-icons">access_time</i>Werkdruk en Uren
+          </h5>
+          <div class="card">
+            <div class="card-content">
+              <p>
+                Door meer groepsactiviteiten en inzet van peer feedback
+                herstructureren we de uren zodat de werkdruk afneemt. Dit biedt
+                ruimte voor een intensievere en kwalitatieve begeleiding.
+              </p>
+              <div class="center-align">
+                <p class="section-description">Verdeling urenbudget</p>
+                <div class="row">
+                  <div class="col s4 center-align">
+                    <i class="material-icons medium">watch_later</i>
+                    <h4 class="key-number">182</h4>
+                    <p>Budget</p>
+                  </div>
+                  <div class="col s4 center-align">
+                    <i class="material-icons medium">groups_2</i>
+                    <h4 class="key-number">130</h4>
+                    <p>Contacturen</p>
+                  </div>
+                  <div class="col s4 center-align">
+                    <i class="material-icons medium">add_circle_outline</i>
+                    <h4 class="key-number">52</h4>
+                    <p>Vrij besteedbaar</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Curriculum aansluiting -->
+        <div class="section">
+          <h5 class="section-title">
+            <i class="material-icons">school</i>Aansluiting bij het curriculum
+          </h5>
+          <div class="card">
+            <div class="card-content">
+              <p>
+                De vernieuwde aanpak sluit naadloos aan bij het nieuwe
+                curriculum, met extra aandacht voor zowel inhoud als de
+                praktische uitvoering.
+              </p>
+              <div class="divider"></div>
+              <div class="section">
+                <h6>Belangrijkste aansluitingspunten:</h6>
+                <div class="row">
+                  <div class="col s12 m6">
+                    <div class="card-panel">
+                      <i class="material-icons left">check_circle</i>
+                      Gerichtere voorbereiding op AOD
+                    </div>
+                  </div>
+                  <div class="col s12 m6">
+                    <div class="card-panel">
+                      <i class="material-icons left">check_circle</i>
+                      Meer focus op onderzoeksvaardigheden
+                    </div>
+                  </div>
+                  <div class="col s12 m6">
+                    <div class="card-panel">
+                      <i class="material-icons left">check_circle</i>
+                      Meer aandacht voor peer feedback
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Planning/Tijdsschema -->
-      <div class="section">
-        <h5>Tijdsschema Stagebegeleiding</h5>
-        <p>
+      <div id="planning" class="section">
+        <h5 class="section-title">
+          <i class="material-icons">date_range</i>Tijdsschema Stagebegeleiding
+        </h5>
+        <p class="section-description">
           Het onderstaande overzicht geeft per week de activiteiten, de
           betrokken docenturen en de inhoudelijke focus van zowel de PM- als de
           workshoponderdelen.
         </p>
-        <div class="responsive-table">
-          <table class="highlight">
-            <thead class="table-header">
-              <tr>
-                <th>Lesweken</th>
-                <th>Onderwerp</th>
-                <th class="right-align">Doc Ond</th>
-                <th class="right-align">Doc PM</th>
-                <th class="right-align">Totaal klokuren</th>
-                <th>Inhoud PM</th>
-                <th>Inhoud workshop</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Week 1</td>
-                <td>PM &amp; workshop</td>
-                <td class="right-align">3</td>
-                <td class="right-align">3</td>
-                <td class="right-align">6</td>
-                <td>Kennismaking &amp; LOP introduceren</td>
-                <td>Vooronderzoek, opbouw PvA, bronnen zoeken</td>
-              </tr>
-              <tr>
-                <td>Week 2</td>
-                <td colspan="6" class="center-align">0</td>
-              </tr>
-              <tr>
-                <td>Week 3</td>
-                <td>Bedrijfsbezoek + PM &amp; workshop</td>
-                <td class="right-align">7</td>
-                <td class="right-align">7</td>
-                <td class="right-align">14</td>
-                <td>Workshop Onderzoek</td>
-                <td>Planning. Peer feedbacksessie PvA</td>
-              </tr>
-              <tr>
-                <td>Week 4</td>
-                <td>Bedrijfsbezoek 1<br />(2.5 uur/student)</td>
-                <td class="right-align">7.5</td>
-                <td class="right-align">7.5</td>
-                <td class="right-align">15</td>
-                <td colspan="2">&nbsp;</td>
-              </tr>
-              <tr>
-                <td>Week 5</td>
-                <td>Bedrijfsbezoek 1 (2.5 uur/student) &amp; workshop</td>
-                <td class="right-align">7</td>
-                <td class="right-align">7</td>
-                <td class="right-align">14</td>
-                <td>Intervisie</td>
-                <td>Onderzoeksmethode</td>
-              </tr>
-              <tr>
-                <td>Week 6</td>
-                <td>Nakijken PvA</td>
-                <td class="right-align">3</td>
-                <td class="right-align">3</td>
-                <td class="right-align">6</td>
-                <td colspan="2">&nbsp;</td>
-              </tr>
-              <tr>
-                <td>Week 7</td>
-                <td>Nakijken PvA</td>
-                <td class="right-align">4</td>
-                <td class="right-align">4</td>
-                <td class="right-align">8</td>
-                <td colspan="2">&nbsp;</td>
-              </tr>
-              <tr>
-                <td>Week 8</td>
-                <td>PM &amp; workshop</td>
-                <td class="right-align">2</td>
-                <td class="right-align">2</td>
-                <td class="right-align">4</td>
-                <td>Intervisie</td>
-                <td>Vragen stellen over feedback PvA</td>
-              </tr>
-              <tr>
-                <td>Week 9</td>
-                <td colspan="6" class="center-align">0</td>
-              </tr>
-              <tr>
-                <td>Week 10</td>
-                <td>PM &amp; workshop</td>
-                <td class="right-align">2</td>
-                <td class="right-align">2</td>
-                <td class="right-align">4</td>
-                <td>Intervisie</td>
-                <td>Korte introductie adviesrapport, rapporteren</td>
-              </tr>
-              <tr>
-                <td>Week 11</td>
-                <td colspan="6" class="center-align">0</td>
-              </tr>
-              <tr>
-                <td>Week 12</td>
-                <td>PM &amp; workshop</td>
-                <td class="right-align">2</td>
-                <td class="right-align">2</td>
-                <td class="right-align">4</td>
-                <td>Link naar F-cluster</td>
-                <td>Stava presenteren resultaten onderzoek</td>
-              </tr>
-              <tr>
-                <td>Week 13</td>
-                <td colspan="6" class="center-align">0</td>
-              </tr>
-              <tr>
-                <td>Week 14</td>
-                <td>PM &amp; workshop</td>
-                <td class="right-align">2</td>
-                <td class="right-align">2</td>
-                <td class="right-align">4</td>
-                <td>Voorbereiding eindpresentatie</td>
-                <td>Conclusie en Advies &amp; implementatieplan</td>
-              </tr>
-              <tr>
-                <td>Week 15</td>
-                <td>Eindpresentaties<br />(1u/student)</td>
-                <td class="right-align">7</td>
-                <td class="right-align">7</td>
-                <td class="right-align">--</td>
-                <td colspan="2">&nbsp;</td>
-              </tr>
-              <tr>
-                <td>Week 16</td>
-                <td>Eindpresentaties<br />(1u/student)</td>
-                <td class="right-align">7</td>
-                <td class="right-align">7</td>
-                <td class="right-align">--</td>
-                <td colspan="2">&nbsp;</td>
-              </tr>
-              <tr>
-                <td>Week 17</td>
-                <td>Nakijken Adviesrapport</td>
-                <td class="right-align">6</td>
-                <td class="right-align">6</td>
-                <td class="right-align">12</td>
-                <td colspan="2">&nbsp;</td>
-              </tr>
-              <tr>
-                <td>Week 18</td>
-                <td>Nakijken Adviesrapport</td>
-                <td class="right-align">4.5</td>
-                <td class="right-align">4.5</td>
-                <td class="right-align">9</td>
-                <td colspan="2">&nbsp;</td>
-              </tr>
-              <tr>
-                <td>Week 19</td>
-                <td>Eindevaluatie</td>
-                <td class="right-align">2</td>
-                <td class="right-align">2</td>
-                <td class="right-align">4</td>
-                <td>Vragen/Evaluatie</td>
-                <td>Vragen stellen over feedback eindstukken</td>
-              </tr>
-              <tr>
-                <td>Week 20</td>
-                <td>Herkansingen nakijken</td>
-                <td class="right-align">3.5</td>
-                <td class="right-align">3.5</td>
-                <td class="right-align">7</td>
-                <td colspan="2">&nbsp;</td>
-              </tr>
-            </tbody>
-            <tfoot class="table-header">
-              <tr>
-                <th>Totaal</th>
-                <th></th>
-                <th class="right-align">62.5</th>
-                <th class="right-align">62.5</th>
-                <th class="right-align">125</th>
-                <th></th>
-                <th></th>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-      </div>
-
-      <!-- Urenbudget -->
-      <div class="section">
-        <h5>Urenbudget Per 2 Docenten</h5>
-        <div class="responsive-table">
-          <table class="highlight">
-            <thead class="table-header">
-              <tr>
-                <th>Omschrijving</th>
-                <th class="right-align">Uren</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Beschikbare tijd</td>
-                <td class="right-align">182</td>
-              </tr>
-              <tr>
-                <td>Benodigde tijd</td>
-                <td class="right-align">125</td>
-              </tr>
-              <tr>
-                <td>Overige tijd</td>
-                <td class="right-align">57</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="card">
+          <div class="card-content">
+            <div class="responsive-table">
+              <table class="highlight">
+                <thead class="table-header">
+                  <tr>
+                    <th>Lesweken</th>
+                    <th>Onderwerp</th>
+                    <th class="right-align">Doc 1</th>
+                    <th class="right-align">Doc 2</th>
+                    <th class="right-align">Totaal klokuren</th>
+                    <th>Inhoud PM</th>
+                    <th>Inhoud workshop</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="week-number">Week 1</td>
+                    <td>PM &amp; workshop</td>
+                    <td class="right-align">2</td>
+                    <td class="right-align">4</td>
+                    <td class="right-align">6</td>
+                    <td>Kennismaking &amp; LOP introduceren</td>
+                    <td>Vooronderzoek, opbouw PvA, bronnen zoeken</td>
+                  </tr>
+                  <tr class="zero-hours">
+                    <td class="week-number">Week 2</td>
+                    <td colspan="6" class="center-align"></td>
+                  </tr>
+                  <tr>
+                    <td class="week-number">Week 3</td>
+                    <td>Bedrijfsbezoek + PM &amp; workshop</td>
+                    <td class="right-align">23</td>
+                    <td class="right-align">21</td>
+                    <td class="right-align">44</td>
+                    <td>Workshop Onderzoek</td>
+                    <td>Planning. Peer feedbacksessie PvA</td>
+                  </tr>
+                  <tr>
+                    <td class="week-number">Week 4</td>
+                    <td>Bedrijfsbezoek 1<br />(2.5 uur/student)</td>
+                    <td class="right-align"></td>
+                    <td class="right-align"></td>
+                    <td class="right-align"></td>
+                    <td colspan="2">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td class="week-number">Week 5</td>
+                    <td>Bedrijfsbezoek 1 (2.5 uur/student) &amp; workshop</td>
+                    <td class="right-align">1</td>
+                    <td class="right-align">2</td>
+                    <td class="right-align">3</td>
+                    <td>Intervisie</td>
+                    <td>Onderzoeksmethode.</td>
+                  </tr>
+                  <tr>
+                    <td class="week-number">Week 6</td>
+                    <td>Nakijken PvA</td>
+                    <td class="right-align">7</td>
+                    <td class="right-align">7</td>
+                    <td class="right-align">14</td>
+                    <td colspan="2">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td class="week-number">Week 7</td>
+                    <td>PM &amp; workshop / Nakijken PvA</td>
+                    <td class="right-align">3</td>
+                    <td class="right-align">3</td>
+                    <td class="right-align">6</td>
+                    <td>Intervisie</td>
+                    <td>Vragen stellen over feedback PvA</td>
+                  </tr>
+                  <tr class="zero-hours">
+                    <td class="week-number">Week 8</td>
+                    <td colspan="6" class="center-align"></td>
+                  </tr>
+                  <tr class="zero-hours">
+                    <td class="week-number">Week 9</td>
+                    <td colspan="6" class="center-align"></td>
+                  </tr>
+                  <tr>
+                    <td class="week-number">Week 10</td>
+                    <td>PM &amp; workshop</td>
+                    <td class="right-align">2</td>
+                    <td class="right-align">1</td>
+                    <td class="right-align">3</td>
+                    <td>Intervisie</td>
+                    <td>Korte introductie adviesrapport, rapporteren</td>
+                  </tr>
+                  <tr class="zero-hours">
+                    <td class="week-number">Week 11</td>
+                    <td colspan="6" class="center-align"></td>
+                  </tr>
+                  <tr>
+                    <td class="week-number">Week 12</td>
+                    <td>PM &amp; workshop</td>
+                    <td class="right-align">2</td>
+                    <td class="right-align">2</td>
+                    <td class="right-align">4</td>
+                    <td>Link naar F-cluster</td>
+                    <td>stava presenteren resultaten onderzoek.</td>
+                  </tr>
+                  <tr class="zero-hours">
+                    <td class="week-number">Week 13</td>
+                    <td colspan="6" class="center-align"></td>
+                  </tr>
+                  <tr>
+                    <td class="week-number">Week 14</td>
+                    <td>PM &amp; workshop</td>
+                    <td class="right-align">3</td>
+                    <td class="right-align">1</td>
+                    <td class="right-align">4</td>
+                    <td>Voorbereiding eindpresentatie</td>
+                    <td>Conclusie en Advies &amp; implementatieplan</td>
+                  </tr>
+                  <tr>
+                    <td class="week-number">Week 15</td>
+                    <td>Eindpresentaties<br />(1u/student)</td>
+                    <td class="right-align">7</td>
+                    <td class="right-align"></td>
+                    <td class="right-align">7</td>
+                    <td colspan="2">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td class="week-number">Week 16</td>
+                    <td>Eindpresentaties<br />(1u/student)</td>
+                    <td class="right-align"></td>
+                    <td class="right-align">7</td>
+                    <td class="right-align">7</td>
+                    <td colspan="2">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td class="week-number">Week 17</td>
+                    <td>Nakijken Adviesrapport</td>
+                    <td class="right-align">10.5</td>
+                    <td class="right-align">10.5</td>
+                    <td class="right-align">21</td>
+                    <td colspan="2">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td class="week-number">Week 18</td>
+                    <td>Nakijken Adviesrapport</td>
+                    <td class="right-align"></td>
+                    <td class="right-align"></td>
+                    <td class="right-align"></td>
+                    <td colspan="2">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td class="week-number">Week 19</td>
+                    <td>Eindevaluatie</td>
+                    <td class="right-align">2</td>
+                    <td class="right-align">2</td>
+                    <td class="right-align">4</td>
+                    <td>Vragen / Evaluatie</td>
+                    <td>Vragen stellen over feedback eindstukken</td>
+                  </tr>
+                  <tr>
+                    <td class="week-number">Week 20</td>
+                    <td>Herkansingen nakijken</td>
+                    <td class="right-align">3.5</td>
+                    <td class="right-align">3.5</td>
+                    <td class="right-align">7</td>
+                    <td colspan="2">&nbsp;</td>
+                  </tr>
+                </tbody>
+                <tfoot class="table-header totals-row">
+                  <tr>
+                    <th>Totaal</th>
+                    <th></th>
+                    <th class="right-align">66</th>
+                    <th class="right-align">64</th>
+                    <th class="right-align">130</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Deadlines -->
-      <div class="section">
-        <h5>Deadlines</h5>
-        <div class="responsive-table">
-          <table class="highlight">
-            <thead class="table-header">
-              <tr>
-                <th>Product</th>
-                <th>Deadline</th>
-                <th>Deadline nakijken</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>PvA</td>
-                <td>Week 4</td>
-                <td>Week 7 voor workshop</td>
-              </tr>
-              <tr>
-                <td>Adviesrapport</td>
-                <td>Week 14</td>
-                <td>Week 18 (liefst met presentatie?)</td>
-              </tr>
-              <tr>
-                <td>Evaluatierapport</td>
-                <td>Week 18</td>
-                <td>binnen 15 werkdagen</td>
-              </tr>
-              <tr>
-                <td>Herk. advies</td>
-                <td>Week 20</td>
-                <td>binnen 15 werkdagen</td>
-              </tr>
-              <tr>
-                <td>Herk. evaluatie</td>
-                <td>notk</td>
-                <td>binnen 15 werkdagen</td>
-              </tr>
-            </tbody>
-          </table>
+      <div id="deadlines" class="section">
+        <h5 class="section-title">
+          <i class="material-icons">event</i>Deadlines
+        </h5>
+        <div class="card">
+          <div class="card-content">
+            <div class="responsive-table">
+              <table class="highlight">
+                <thead class="table-header">
+                  <tr>
+                    <th>Product</th>
+                    <th>Deadline</th>
+                    <th>Deadline nakijken</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <i class="material-icons left tiny">description</i> PvA
+                    </td>
+                    <td><span class="chip">Week 4</span></td>
+                    <td><span class="chip">Week 7</span> voor workshop</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <i class="material-icons left tiny">assignment</i>
+                      Adviesrapport
+                    </td>
+                    <td><span class="chip">Week 14</span></td>
+                    <td><span class="chip">Week 18</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <i class="material-icons left tiny">assessment</i>
+                      Evaluatierapport
+                    </td>
+                    <td><span class="chip">Week 18</span></td>
+                    <td>binnen 15 werkdagen</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <i class="material-icons left tiny">update</i> Herk.
+                      advies
+                    </td>
+                    <td><span class="chip">Week 20</span></td>
+                    <td>binnen 15 werkdagen</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <i class="material-icons left tiny">update</i> Herk.
+                      evaluatie
+                    </td>
+                    <td><span class="chip">notk</span></td>
+                    <td>binnen 15 werkdagen</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="fixed-action-btn">
+      <a class="btn-floating btn-large waves-effect waves-light teal">
+        <i class="material-icons">menu</i>
+      </a>
+      <ul>
+        <li>
+          <a
+            class="btn-floating red tooltipped"
+            data-position="left"
+            data-tooltip="Download PDF"
+            ><i class="material-icons">picture_as_pdf</i></a
+          >
+        </li>
+        <li>
+          <a
+            class="btn-floating yellow darken-1 tooltipped"
+            data-position="left"
+            data-tooltip="Deel via e-mail"
+            ><i class="material-icons">email</i></a
+          >
+        </li>
+        <li>
+          <a
+            class="btn-floating green tooltipped"
+            data-position="left"
+            data-tooltip="Voeg toe aan kalender"
+            ><i class="material-icons">event</i></a
+          >
+        </li>
+        <li>
+          <a
+            class="btn-floating blue tooltipped"
+            data-position="left"
+            data-tooltip="Print document"
+            ><i class="material-icons">print</i></a
+          >
+        </li>
+      </ul>
     </div>
 
     <!-- Materialize JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        // Eventuele initialisatie van Materialize-componenten
+        // Initialiseer tabs
+        var tabs = document.querySelectorAll(".tabs");
+        M.Tabs.init(tabs);
+
+        // Initialiseer floating action button
+        var elems = document.querySelectorAll(".fixed-action-btn");
+        M.FloatingActionButton.init(elems);
+
+        // Initialiseer tooltips
+        var tooltips = document.querySelectorAll(".tooltipped");
+        M.Tooltip.init(tooltips);
+
+        // Welkomstbericht tonen
+        M.toast({
+          html: "Welkom bij de vernieuwde stagebegeleiding!",
+          displayLength: 3000,
+        });
       });
     </script>
   </body>
