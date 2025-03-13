@@ -152,12 +152,31 @@
         border-radius: 24px;
         background-color: var(--han-red);
       }
-      /* Floating action button */
-      .fixed-action-btn .btn-floating {
+      /* Print button */
+      .print-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
         background-color: var(--han-red);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 56px;
+        height: 56px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 1000;
+        transition: background-color 0.3s, transform 0.2s;
       }
-      .fixed-action-btn .btn-floating:hover {
+      .print-button:hover {
         background-color: var(--han-red-dark);
+        transform: scale(1.05);
+      }
+      .print-button i {
+        font-size: 24px;
       }
       /* Chips */
       .chip {
@@ -173,7 +192,7 @@
       /* Print-friendly adjustments */
       @media print {
         .tabs,
-        .fixed-action-btn {
+        .print-button {
           display: none;
         }
         body {
@@ -594,46 +613,15 @@
       </div>
     </div>
 
-    <!-- Floating Action Button -->
-    <div class="fixed-action-btn">
-      <a class="btn-floating btn-large waves-effect waves-light">
-        <i class="material-icons">menu</i>
-      </a>
-      <ul>
-        <li>
-          <a
-            class="btn-floating red tooltipped"
-            data-position="left"
-            data-tooltip="Download PDF"
-            ><i class="material-icons">picture_as_pdf</i></a
-          >
-        </li>
-        <li>
-          <a
-            class="btn-floating yellow darken-1 tooltipped"
-            data-position="left"
-            data-tooltip="Deel via e-mail"
-            ><i class="material-icons">email</i></a
-          >
-        </li>
-        <li>
-          <a
-            class="btn-floating green tooltipped"
-            data-position="left"
-            data-tooltip="Voeg toe aan kalender"
-            ><i class="material-icons">event</i></a
-          >
-        </li>
-        <li>
-          <a
-            class="btn-floating blue tooltipped"
-            data-position="left"
-            data-tooltip="Print document"
-            ><i class="material-icons">print</i></a
-          >
-        </li>
-      </ul>
-    </div>
+    <!-- Print Button -->
+    <button
+      class="print-button tooltipped"
+      data-position="left"
+      data-tooltip="Printen als PDF"
+      onclick="printDocument()"
+    >
+      <i class="material-icons">print</i>
+    </button>
 
     <!-- Materialize JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -642,10 +630,6 @@
         // Initialiseer tabs
         var tabs = document.querySelectorAll(".tabs");
         M.Tabs.init(tabs);
-
-        // Initialiseer floating action button
-        var elems = document.querySelectorAll(".fixed-action-btn");
-        M.FloatingActionButton.init(elems);
 
         // Initialiseer tooltips
         var tooltips = document.querySelectorAll(".tooltipped");
@@ -657,6 +641,11 @@
           displayLength: 3000,
         });
       });
+
+      // Functie om document te printen
+      function printDocument() {
+        window.print();
+      }
     </script>
   </body>
 </html>
